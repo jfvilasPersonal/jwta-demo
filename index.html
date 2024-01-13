@@ -1,0 +1,82 @@
+<html>
+    <head></head>
+    <body onload="checkUrl()">
+        <script>
+            function checkUrl() {
+                var a = window.location.toString();
+                var j = a.indexOf("#");
+                if (j>=0) {
+                    a=a.substring(j+1);
+                    var parms=a.split("&");
+                    for (i=0;i<parms.length;i++) {
+                        //console.log(parms[i]);
+                        if (parms[i].startsWith("access_token=")) document.getElementById('accesstoken').value=parms[i].substring(13);
+                        if (parms[i].startsWith("id_token=")) document.getElementById('idtoken').value=parms[i].substring(9);
+                        if (parms[i].startsWith("refresh_token=")) document.getElementById('refreshtoken').value=parms[i].substring(14);
+                    }
+                }
+            }
+
+            function htmlDecode(input) {
+                var doc = new DOMParser().parseFromString(input, "text/html");
+                return doc.documentElement.textContent;
+            }
+
+            function invoke(type, url, token, num) {
+                var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        //if (this.readyState == 4 && this.status == 200) {
+                        if (this.readyState == 4) {
+                            // Typical action to be performed when the document is ready:
+                            document.getElementById("result").innerHTML = "<pre>"+htmlDecode(xhttp.responseText)+"</pre>";
+                        }
+                    };
+                    if (token) {
+                        xhttp.open("GET", url, true);
+                        if (type==='idtoken' || type==='accesstoken') xhttp.setRequestHeader('Authorization','Bearer '+token);
+                        if (type==='basic') xhttp.setRequestHeader('Authorization','Basic '+token);
+                    }
+                    else {
+                        xhttp.open("GET", url, true);
+                    }
+                    xhttp.send();
+            }
+
+            function invokeMulti(type, url, token, num) {
+                for (i=0;i<num;i++) {
+                    invoke(type, url, token, num);
+                }   
+            }
+        </script>
+        <p>
+            Pega aqui la URL de destino:
+            <input type="text" name="url" id="url"/><br/>
+            Pega aqui el token de acceso:
+            <input type="text" name="accesstoken" id="accesstoken"/><br/>
+            Pega aqui el token de identidad:
+            <input type="text" name="idtoken" id="idtoken"/><br/>
+            Pega aqui el token de refresco:
+            <input type="text" name="refreshtoken" id="refreshtoken"/><br/>
+            Indica el numero de peticiones:
+            <input type="text" name="num" id="num" value="1"/><br/>
+            Indica las credenciales para Basic Auth:
+            <input type="text" name="user" id="user" /><br/>
+            <input type="text" name="pass" id="pass" /><br/>
+            <hr>
+            <input type="button" name="enviar" value="GET-access" onclick="invokeMulti('accesstoken',document.getElementById('url').value,document.getElementById('accesstoken').value,document.getElementById('num').value)"/>
+            <input type="button" name="enviar" value="GET-id" onclick="invokeMulti('idtoken',document.getElementById('url').value,document.getElementById('idtoken').value,document.getElementById('num').value)"/>
+            <input type="button" name="enviar" value="GET" onclick="invokeMulti(null,document.getElementById('url').value, null, document.getElementById('num').value)"/><br/>
+            <input type="button" name="enviar" value="GET-basic" onclick="invokeMulti('basic',document.getElementById('url').value,btoa(document.getElementById('user').value+':'+document.getElementById('pass').value),document.getElementById('num').value)"/>
+            <hr/>
+            Obtener token de cognito (usuario julio.fernandezvilas@plexus.es, password Prueba2):<br/>
+            <a href='https://plexus.auth.us-east-1.amazoncognito.com/oauth2/authorize?username=julio.fernandezvilas@plexus.es&password=Prueba1&response_type=token&client_id=32glqh7bq8rs7qmva2c3te0pf3&redirect_uri=http://localhost'>signin</a>
+            <hr/>
+            Obtener token de B2C (usuario ruben.marin@eulennopro.onmicrosoft.com, password asd123Plexus.):<br/>
+            <a href='https://eulennopro.b2clogin.com/eulennopro.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_si&client_id=b8aba149-582f-4682-a2d0-6e4efca9126d&nonce=defaultNonce&redirect_uri=http%3A%2F%2Flocalhost&scope=openid%20https%3A%2F%2Feulennopro.onmicrosoft.com%2Feulenapp%2Fread&response_type=id_token%20token&prompt=login'>signin</a>
+            <hr/>
+            
+
+            <span id="result">result</span>
+        </p>
+    </body>
+</html>
