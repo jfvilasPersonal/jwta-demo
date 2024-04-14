@@ -53,22 +53,22 @@
             }
         </script>
         <p>
-            Login en Cognito (usuario julio.fernandezvilas@plexus.es, password Prueba2):<br/>
+            Login en Cognito (se ncesita el nombre del cognito, la region, clientid)(opcional los scopes):<br/>
             <a href='https://plexus.auth.us-east-1.amazoncognito.com/oauth2/authorize?username=julio.fernandezvilas@plexus.es&password=Prueba1&response_type=token&client_id=32glqh7bq8rs7qmva2c3te0pf3&redirect_uri=http://localhost'>signin</a>
             <hr/>
-            Login en B2C (usuario ruben.marin@eulennopro.onmicrosoft.com, password asd123Plexus.):<br/>
+            Login en B2C (se necesita: b2cname, userflowname, clientid)(opcional los scopes):<br/>
             <a href='https://eulennopro.b2clogin.com/eulennopro.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_si&client_id=b8aba149-582f-4682-a2d0-6e4efca9126d&nonce=defaultNonce&redirect_uri=http%3A%2F%2Flocalhost&scope=openid%20https%3A%2F%2Feulennopro.onmicrosoft.com%2Feulenapp%2Fread&response_type=id_token%20token&prompt=login'>signin</a>
             <hr/>
-            Login en KeyCloak:<br/>
+            Login en KeyCloak (se necesita url, realm, clientid)(opcional los scopes):<br/>
             <a href='http://localhost:8080/realms/testrealm/protocol/openid-connect/auth?client_id=testclient&redirect_uri=http%3A%2F%2Flocalhost&response_type=token&scope=openid+offline_access'>signin</a>
             <hr/>
             
             Pega aqui la URL de destino:
             <input type="text" name="url" id="url"/><br/>
             Pega aqui el token de acceso:
-            <input type="text" name="accesstoken" id="accesstoken"/><br/>
+            <input type="text" name="accesstoken" id="accesstoken"/>&nbsp;<a id="jwtio" target="_new">Ver en JWT.io</a><br/>
             Pega aqui el token de identidad:
-            <input type="text" name="idtoken" id="idtoken"/>&nbsp;<a id="jwtio" target="_new">Ver en JWT.io</a><br/>
+            <input type="text" name="idtoken" id="idtoken"/><br/>
             Pega aqui el token de refresco:
             <input type="text" name="refreshtoken" id="refreshtoken"/><br/>
             Indica el numero de peticiones:
