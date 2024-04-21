@@ -9,11 +9,12 @@
                     a=a.substring(j+1);
                     var parms=a.split("&");
                     for (i=0;i<parms.length;i++) {
-                        //console.log(parms[i]);
+                        console.log(parms[i]);
                         if (parms[i].startsWith("access_token=")) {
-                            var at=parms[i].substring(13);
-                            document.getElementById('accesstoken').value=at;
-                            document.getElementById('jwtio').href="https://jwt.io?access_token="+at;
+                            var j = parms[i].indexOf('=');
+                            var token=parms[i].substring(j+1);
+                            document.getElementById('accesstoken').value=token;
+                            document.getElementById('jwtio').href="https://jwt.io?access_token="+token;
                         }
                         if (parms[i].startsWith("id_token=")) document.getElementById('idtoken').value=parms[i].substring(9);
                         if (parms[i].startsWith("refresh_token=")) document.getElementById('refreshtoken').value=parms[i].substring(14);
@@ -62,6 +63,20 @@
             Login en KeyCloak (se necesita url, realm, clientid)(opcional los scopes):<br/>
             <a href='http://localhost:8080/realms/testrealm/protocol/openid-connect/auth?client_id=testclient&redirect_uri=http%3A%2F%2Flocalhost&response_type=token&scope=openid+offline_access'>signin</a>
             <hr/>
+            Get an Access token from Google's OAuth endpoint:
+            <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=995641591263-pbhk6pbhf8nbdklmlicttuji4sbdp15v.apps.googleusercontent.com&redirect_uri=http://localhost&response_type=token&scope=openid%20email%20profile">signin</a>
+            
+            <br/>
+
+            Login en Google (se necesita cllientid):<br/>
+            <script src="https://accounts.google.com/gsi/client" async defer></script>
+            <div id="g_id_onload"
+                 data-client_id="995641591263-pbhk6pbhf8nbdklmlicttuji4sbdp15v.apps.googleusercontent.com"
+                 data-ux_mode="redirect"
+                 data-login_uri="http://localhost">
+            </div>
+            <div class="g_id_signin" data-type="standard"></div>
+        
             
             Pega aqui la URL de destino:
             <input type="text" name="url" id="url"/><br/>
