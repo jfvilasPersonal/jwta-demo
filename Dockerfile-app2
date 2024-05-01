@@ -1,0 +1,9 @@
+FROM nginx
+WORKDIR /etc/nginx/conf.d
+COPY default-app2.conf default.conf
+WORKDIR /usr/share/nginx/html/app2
+COPY index-app2.html index.html
+WORKDIR /usr/share/nginx/html/app2/protect
+COPY index-app2-protected.html index.html
+WORKDIR /usr/share/nginx/html/app2/check
+COPY index-app2-protected.html index.html

@@ -1,0 +1,5 @@
+FROM nginx
+WORKDIR /etc/nginx/conf.d
+COPY default-demo.conf default.conf
+WORKDIR /usr/share/nginx/html/demo
+COPY index.html index.html
