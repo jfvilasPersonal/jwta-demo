@@ -13,18 +13,11 @@ spec:
   - host: localhost
     http:
       paths:
-        - path: /obka-admin
+        - path: /obk-authorizator/ja-jfvilas
           pathType: Prefix
           backend:
             service:
               name: obk-authorizator-ja-jfvilas-svc
-              port:
-                number: 3000
-        - path: /obkc-admin
-          pathType: Prefix
-          backend:
-            service:
-              name: obk-controller-svc
               port:
                 number: 3000
         - path: /demo
