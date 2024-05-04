@@ -13,13 +13,14 @@ spec:
   - host: localhost
     http:
       paths:
+        # access to authrizator API
         - path: /obk-authorizator/ja-jfvilas
           pathType: Prefix
           backend:
             service:
               name: obk-authorizator-ja-jfvilas-svc
               port:
-                number: 3000
+                number: 3882
         - path: /demo
           pathType: Prefix
           backend:
