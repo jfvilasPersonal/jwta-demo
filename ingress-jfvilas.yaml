@@ -13,8 +13,8 @@ spec:
   - host: localhost
     http:
       paths:
-        # access to authrizator API
-        - path: /obk-authorizator/ja-jfvilas
+        # access to authrizator API (not needed by the console, but useful if you to manage authorizator externally)
+        - path: /obk-authorizator/dev/ja-jfvilas
           pathType: Prefix
           backend:
             service:
