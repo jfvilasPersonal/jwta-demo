@@ -1,3 +1,4 @@
+kubectl config use-context k3d-oberkorn
 kubectl delete -f ingress-jfvilas.yaml
 
 kubectl delete -f deployment-demo.yaml
